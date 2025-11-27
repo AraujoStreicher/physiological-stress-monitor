@@ -77,7 +77,7 @@ class DataLoader:
     def extract_features(self, df, sensor):
         """
         Recebe um dataframe de uma ou mais series temporais separados por colunas e extrai features da serie.
-        Retorna um dicionario com as features MEAN, STD, MIN, MAX, MEDIAN, RANGE de cada coluna. 
+        Retorna um dicionario com as features MEAN, STD, MIN, MAX, MEDIAN de cada coluna. 
 
         @param df: DataFrame com as series temporais do sensor.
         @param prefix: String com o nome do sensor.
@@ -214,6 +214,13 @@ class DataLoader:
 
 
 def encoder_imputer(train_df, test_df):
+    """
+    Codifica variaveis categoricas e imputa valores faltantes no conjunto de treino e teste.
+    
+    @param train_df: DataFrame de treino.
+    @param test_df: DataFrame de teste.
+    """
+
     TARGET_COL = "Label" 
     ID_COL = "Id"
 

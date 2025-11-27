@@ -33,56 +33,51 @@ def plot_distribuicoes_basicas(train_df):
     axes[0, 0].set_title('Distribuicao das Classes', fontsize=14, fontweight='bold')
     
     ## 2. Genero
-    if 'Gender' in train_df.columns:
-        gender_counts = train_df['Gender'].value_counts()
-        sns.barplot(x=gender_counts.index, y=gender_counts.values, ax=axes[0, 1], palette='pastel', hue=gender_counts.values)
-        axes[0, 1].set_title('Distribuicao por Genero', fontsize=14, fontweight='bold')
-        axes[0, 1].set_xlabel('Genero')
-        axes[0, 1].set_ylabel('Quantidade')
+    gender_counts = train_df['Gender'].value_counts()
+    sns.barplot(x=gender_counts.index, y=gender_counts.values, ax=axes[0, 1], palette='pastel', hue=gender_counts.values)
+    axes[0, 1].set_title('Distribuicao por Genero', fontsize=14, fontweight='bold')
+    axes[0, 1].set_xlabel('Genero')
+    axes[0, 1].set_ylabel('Quantidade')
     
     ## 3. Idade
-    if 'Age' in train_df.columns:
-        train_df['Age'] = pd.to_numeric(train_df['Age'], errors='coerce')
-
-        sns.histplot(train_df['Age'], bins=15, kde=True, ax=axes[0, 2], color='skyblue')
-        axes[0, 2].set_title('Distribuicao de Idade', fontsize=14, fontweight='bold')
-        axes[0, 2].set_xlabel('Idade')
-        axes[0, 2].set_ylabel('Frequencia')
-        axes[0, 2].axvline(train_df['Age'].mean(), color='red', linestyle='--', label=f'Mean: {train_df["Age"].mean():.1f}')
-        axes[0, 2].legend()
+    train_df['Age'] = pd.to_numeric(train_df['Age'], errors='coerce')
+    sns.histplot(train_df['Age'], bins=15, kde=True, ax=axes[0, 2], color='skyblue')
+    axes[0, 2].set_title('Distribuicao de Idade', fontsize=14, fontweight='bold')
+    axes[0, 2].set_xlabel('Idade')
+    axes[0, 2].set_ylabel('Frequencia')
+    axes[0, 2].axvline(train_df['Age'].mean(), color='red', linestyle='--', label=f'Mean: {train_df["Age"].mean():.1f}')
+    axes[0, 2].legend()
     
     ## 4. Atividade fisica regular
-    if 'Does physical activity regularly?' in train_df.columns:
-        activity_counts = train_df['Does physical activity regularly?'].value_counts()
-        sns.barplot(x=activity_counts.index, y=activity_counts.values, ax=axes[1, 0], palette='pastel', hue=activity_counts.values)
-        axes[1, 0].set_title('Pratica Atividade Fisica Regular?', fontsize=14, fontweight='bold')
-        axes[1, 0].set_xlabel('Valor')
-        axes[1, 0].set_ylabel('Contagem')
+    activity_counts = train_df['Does physical activity regularly?'].value_counts()
+    sns.barplot(x=activity_counts.index, y=activity_counts.values, ax=axes[1, 0], palette='pastel', hue=activity_counts.values)
+    axes[1, 0].set_title('Pratica Atividade Fisica Regular?', fontsize=14, fontweight='bold')
+    axes[1, 0].set_xlabel('Valor')
+    axes[1, 0].set_ylabel('Contagem')
 
     ## 5. Peso
-    if 'Weight (kg)' in train_df.columns:
-        train_df['Weight (kg)'] = pd.to_numeric(train_df['Weight (kg)'], errors='coerce')
+    train_df['Weight (kg)'] = pd.to_numeric(train_df['Weight (kg)'], errors='coerce')
 
-        sns.histplot(train_df['Weight (kg)'], bins=20, kde=True, ax=axes[1, 1], color='coral')
-        axes[1, 1].set_title('Distribuicao de Peso', fontsize=14, fontweight='bold')
-        axes[1, 1].set_xlabel('Peso')
-        axes[1, 1].set_ylabel('Frequencia')
-        axes[1, 1].axvline(train_df['Weight (kg)'].mean(), color='red', linestyle='--', label=f'Mean: {train_df["Weight (kg)"].mean():.1f}')
-        axes[1, 1].legend()
+    sns.histplot(train_df['Weight (kg)'], bins=20, kde=True, ax=axes[1, 1], color='coral')
+    axes[1, 1].set_title('Distribuicao de Peso', fontsize=14, fontweight='bold')
+    axes[1, 1].set_xlabel('Peso')
+    axes[1, 1].set_ylabel('Frequencia')
+    axes[1, 1].axvline(train_df['Weight (kg)'].mean(), color='red', linestyle='--', label=f'Mean: {train_df["Weight (kg)"].mean():.1f}')
+    axes[1, 1].legend()
 
     ## 6. Altura
-    if 'Height (cm)' in train_df.columns:
-        train_df['Height (cm)'] = pd.to_numeric(train_df['Height (cm)'], errors='coerce')
+    train_df['Height (cm)'] = pd.to_numeric(train_df['Height (cm)'], errors='coerce')
 
-        sns.histplot(train_df['Height (cm)'], bins=20, kde=True, ax=axes[1, 2], color='mediumpurple')
-        axes[1, 2].set_title('Distribuicao de Altura', fontsize=14, fontweight='bold')
-        axes[1, 2].set_xlabel('Altura')
-        axes[1, 2].set_ylabel('Frequencia')
-        axes[1, 2].axvline(train_df['Height (cm)'].mean(), color='red', linestyle='--', label=f'Mean: {train_df["Height (cm)"].mean():.1f}')
-        axes[1, 2].legend()
+    sns.histplot(train_df['Height (cm)'], bins=20, kde=True, ax=axes[1, 2], color='mediumpurple')
+    axes[1, 2].set_title('Distribuicao de Altura', fontsize=14, fontweight='bold')
+    axes[1, 2].set_xlabel('Altura')
+    axes[1, 2].set_ylabel('Frequencia')
+    axes[1, 2].axvline(train_df['Height (cm)'].mean(), color='red', linestyle='--', label=f'Mean: {train_df["Height (cm)"].mean():.1f}')
+    axes[1, 2].legend()
     
 
     def save(train_df):
+        #salva alguns plots individualmentes
         label_counts = train_df['Label'].value_counts()
         fig1, ax1 = plt.subplots(figsize=(6,6))
         ax1.pie(label_counts.values, labels=label_counts.index, autopct='%1.1f%%')
@@ -128,7 +123,7 @@ def plot_series_grouped_by_label(series_dict, sensor):
     for classe, serie_media in series_dict.items():
         plt.plot(serie_media[:min_length], label=classe)
     plt.title(f"Média das séries do sensor {sensor} por classe")
-    plt.xlabel("Tempo (amostras)")
+    plt.xlabel("Tempo")
     plt.ylabel(f"Média do sinal ({sensor})")
     plt.legend()
     plt.show()
@@ -163,11 +158,11 @@ def plot_sensor_by_label(df, base_path, dataloader, sensor_name, samples_per_cla
     """
     Plota a série temporal de um mesmo sensor para uma amostra de cada classe.
     
-    df: dataframe contendo Id e Label
-    base_path: caminho base do dataset
-    dataloader: instância da classe DataLoader
-    sensor_name: nome do arquivo do sensor, ex: 'BVP.csv', 'ACC.csv'
-    samples_per_class: número de usuários por classe
+    @param df: dataframe com colunas Id e Label.
+    @param base_path: caminho base do projeto que tenha o diretorio dataset.
+    @param dataloader: instância da classe DataLoader.
+    @param sensor_name: nome do arquivo do sensor.
+    @param samples_per_class: número de usuários por classe.
     """
 
     plt.figure(figsize=(14, 6))

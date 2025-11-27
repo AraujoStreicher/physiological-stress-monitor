@@ -20,9 +20,10 @@ from sklearn.pipeline import Pipeline
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import learning_curve
+from sklearn.decomposition import PCA
 
 
-def fit_kfold_grid_search(name_model, model, param_grid, X_train, Y_train, use_scaler=False, error_score=np.nan):
+def fit_kfold_grid_search(name_model, model, param_grid, X_train, Y_train, use_scaler=False, use_pca=False, error_score=np.nan):
     """
     Funcao para realizar o pipeline de K-Fold Cross Validation com Grid Search.
     """
@@ -30,6 +31,8 @@ def fit_kfold_grid_search(name_model, model, param_grid, X_train, Y_train, use_s
     pipeline_list = []
     if use_scaler:
         pipeline_list.append(('scaler', StandardScaler()))
+    if use_pca:
+        pipeline_list.append(('pca', PCA(n_components=0.95)))
     
     pipeline_list.append((name_model, model))
     pipeline = Pipeline(pipeline_list)
@@ -50,7 +53,7 @@ def fit_kfold_grid_search(name_model, model, param_grid, X_train, Y_train, use_s
     grid.fit(X_train, Y_train)
     return grid
 
-def plot_learning_curve(model, X, Y, cv=3, scoring="roc_auc_ovr"):
+def plot_learning_curve(model, X, Y, cv=3, scoring="accuracy"):
     train_sizes, train_scores, val_scores = learning_curve(
         model,
         X,
@@ -58,7 +61,7 @@ def plot_learning_curve(model, X, Y, cv=3, scoring="roc_auc_ovr"):
         cv=cv,
         scoring=scoring,
         n_jobs=-1,
-        train_sizes=np.linspace(0.1, 1.0, 10),
+        train_sizes=np.linspace(0.4, 1.0, 5),
         shuffle=True,
         random_state=42
     )
